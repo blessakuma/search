@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поисковая система</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            padding: 2em;
+            color: #333;
+        }
+
+        h1 {
+            color: #111;
+        }
+
+        .search-box {
+            margin-bottom: 2em;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 0.8em 1.5em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 0.5em;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            background: white;
+            padding: 1.2em;
+            margin-bottom: 1.5em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .result h2 {
+            margin: 0 0 0.5em 0;
+            font-size: 1.2em;
+        }
+
+        .result a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .result a:hover {
+            text-decoration: underline;
+        }
+
+        .excerpt {
+            margin-top: 0.5em;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>🔍 Умный поиск в интернете</h1>
+    <form class="search-box" method="post">
+        <input type="text" name="query" placeholder="Введите запрос..." value="{{ query }}">
+        <button type="submit">Искать</button>
+    </form>
+
+    {% if results %}
+        <h2>Результаты:</h2>
+        {% for r in results %}
+            <div class="result">
+                <h2><a href="{{ r.link }}" target="_blank">{{ r.title }}</a></h2>
+                <p class="excerpt">{{ r.excerpt }}</p>
+                <small><a href="{{ r.link }}" target="_blank">{{ r.link }}</a></small>
+            </div>
+        {% endfor %}
+    {% elif query %}
+        <p>Ничего не найдено по запросу: <strong>{{ query }}</strong></p>
+    {% endif %}
+</body>
+</html>
